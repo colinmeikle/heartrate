@@ -3,7 +3,7 @@
 #include <SmingCore/SmingCore.h>
 Timer procTimer;
  
-
+// Important the input must be <1V  so use a voltage divider on the input to divide by 3 (if using 3V supply to sensor)
 
 /**
  * No pin setup is required as the adc pin is fixed
@@ -12,7 +12,7 @@ Heartrate::Heartrate(){
     
 }
 /**
- * Interupt handler tahts called every 2 mS */
+ * timer handler thats called every 2 mS */
 void IRAM_ATTR Heartrate::pulseInterruptHandler() {
    cli();
   
@@ -106,14 +106,23 @@ boolean Heartrate::getQS(){
 int16_t Heartrate::getBPM(){
     return BPM;
 }
+
+int16_t Heartrate::getSignal(){
+    return Signal;
+}
+
+/**
+ * 
+ * @return the inter beat interval  
+ */
 int16_t Heartrate::getIBI(){
     return IBI;
 }
 /***
- *Starts the timer
+ *Starts the timer to take the measurements every 2 mS
  */
 void Heartrate::start(){
-     procTimer.initializeMs(2, TimerDelegate(&Heartrate::pulseInterruptHandler,this)).start(); // every 500 milli seconds
+     procTimer.initializeMs(2, TimerDelegate(&Heartrate::pulseInterruptHandler,this)).start(); // every 2 ms
     
 }
 

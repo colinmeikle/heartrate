@@ -6,6 +6,8 @@
  * code adapted from Pulse Sensor Amped 1.1 by Joel Murphy & Yury Gitman 
  * Check here for detailed code walkthrough:
  * http://pulsesensor.myshopify.com/pages/pulse-sensor-amped-arduino-v1dot1
+ * ADC pin is fixed so it can't be set
+ * Important the input must be <1V  so use a voltage divider on the input to divide by 3 (if using 3V supply to sensor)
  */
 
 #ifndef HEARTRATE_H
@@ -21,6 +23,7 @@ public:
     boolean getQS();
     int16_t getBPM();
     int16_t getIBI();
+    int16_t getSignal();
 
 private:
     volatile int16_t rate[10]; // used to hold last ten IBI values

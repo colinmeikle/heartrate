@@ -38,6 +38,8 @@ extern "C" {
 	// Beta boards
 	#define BOARD_ESP01
 
+        #define COM_PORT COM10
+
 #ifdef __cplusplus
 }
 #endif
